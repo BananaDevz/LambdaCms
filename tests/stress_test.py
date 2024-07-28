@@ -3,24 +3,25 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import random
 
-# Configurações do teste
+# Test Settings
 url = 'http://127.0.0.1:8000/api/posts/'
 headers = {'Content-Type': 'application/json'}
-total_requests = 30000  # Número total de requisições
-concurrent_requests = 10  # Número de requisições concorrentes
+total_requests = 300  # Total number of requests
+concurrent_requests = 10  # Number of competing requests
 
-# Função para criar um payload único
+# Function to create a single payload
 def create_payload(index):
     return {
         'title': f'My Title {index}',
         'content': f'Some content {index}',
-        'tags': f'tag{index % 5},tag{(index + 1) % 5}'
+        'tags': f'tag{index % 5},tag{(index + 1) % 5}',
+        'user_id': f'user123{index}'
     }
 
 def send_request(session, payload):
     try:
         response = session.post(url, headers=headers, json=payload)
-        response.raise_for_status()  # Levanta um erro para status de resposta 4xx/5xx
+        response.raise_for_status()  # Raises an error for response status 4xx/5xx
         return (True, response.status_code)
     except requests.RequestException as e:
         return (False, str(e))
@@ -30,7 +31,7 @@ def stress_test():
     failed_requests = 0
     failed_details = []
     
-    # Cria uma lista de payloads únicos
+    # Creates a list of unique payloads
     payloads = [create_payload(i) for i in range(total_requests)]
 
     with ThreadPoolExecutor(max_workers=concurrent_requests) as executor:

@@ -17,22 +17,28 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'posts',
-     'django.contrib.contenttypes',  
+    'django.contrib.contenttypes',  
     'django.contrib.sessions',       
     'django.contrib.auth',          
     'django.contrib.messages',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'api.middleware.EnsureUserIdMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+}
 ROOT_URLCONF = 'api.urls'
 
 TEMPLATES = [

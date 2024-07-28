@@ -38,12 +38,15 @@ If new tests are completed, check that they are covering all necessary cases and
         __init__.py
         settings.py
         urls.py
+        middleware.py
         wsgi.py
     /posts/
         __init__.py
         admin.py
         apps.py
         models.py
+        permissions.py
+        post_owner.py
         serializers.py
         views.py
 ```
