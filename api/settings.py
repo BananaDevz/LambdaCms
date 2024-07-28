@@ -32,6 +32,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.middleware.EnsureUserIdMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -54,6 +55,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
 ]
 
 WSGI_APPLICATION = 'api.wsgi.application'
